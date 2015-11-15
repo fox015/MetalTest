@@ -13,6 +13,12 @@
 		98F2E1B81BF0C41A0016C0C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98F2E1B71BF0C41A0016C0C5 /* Assets.xcassets */; };
 		98F2E1BB1BF0C41A0016C0C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F2E1B91BF0C41A0016C0C5 /* LaunchScreen.storyboard */; };
 		98F2E1C61BF0C41A0016C0C5 /* MetalTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E1C51BF0C41A0016C0C5 /* MetalTestTests.swift */; };
+		98F2E1D11BF14F3A0016C0C5 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E1D01BF14F3A0016C0C5 /* Shaders.metal */; };
+		98F2E1D71BF3F11A0016C0C5 /* Matrix4.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E1D61BF3F11A0016C0C5 /* Matrix4.m */; };
+		98F2E1D91BF3F17E0016C0C5 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E1D81BF3F17E0016C0C5 /* Vertex.swift */; };
+		98F2E1DB1BF3F1890016C0C5 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E1DA1BF3F1890016C0C5 /* Node.swift */; };
+		98F2E1DD1BF3F4750016C0C5 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E1DC1BF3F4750016C0C5 /* Triangle.swift */; };
+		98F2E1DF1BF46E5B0016C0C5 /* Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E1DE1BF46E5B0016C0C5 /* Cube.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +42,14 @@
 		98F2E1C11BF0C41A0016C0C5 /* MetalTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetalTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F2E1C51BF0C41A0016C0C5 /* MetalTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalTestTests.swift; sourceTree = "<group>"; };
 		98F2E1C71BF0C41A0016C0C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98F2E1D01BF14F3A0016C0C5 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		98F2E1D51BF3F11A0016C0C5 /* Matrix4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix4.h; sourceTree = "<group>"; };
+		98F2E1D61BF3F11A0016C0C5 /* Matrix4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix4.m; sourceTree = "<group>"; };
+		98F2E1D81BF3F17E0016C0C5 /* Vertex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
+		98F2E1DA1BF3F1890016C0C5 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		98F2E1DC1BF3F4750016C0C5 /* Triangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
+		98F2E1DE1BF46E5B0016C0C5 /* Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cube.swift; sourceTree = "<group>"; };
+		98F2E1E01BF4A45C0016C0C5 /* MetalTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MetalTest-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +76,7 @@
 				98F2E1AF1BF0C41A0016C0C5 /* MetalTest */,
 				98F2E1C41BF0C41A0016C0C5 /* MetalTestTests */,
 				98F2E1AE1BF0C41A0016C0C5 /* Products */,
+				98F2E1D41BF3F11A0016C0C5 /* Matrix4 */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,8 +92,14 @@
 		98F2E1AF1BF0C41A0016C0C5 /* MetalTest */ = {
 			isa = PBXGroup;
 			children = (
+				98F2E1D81BF3F17E0016C0C5 /* Vertex.swift */,
+				98F2E1DA1BF3F1890016C0C5 /* Node.swift */,
+				98F2E1E01BF4A45C0016C0C5 /* MetalTest-Bridging-Header.h */,
+				98F2E1DC1BF3F4750016C0C5 /* Triangle.swift */,
 				98F2E1B01BF0C41A0016C0C5 /* AppDelegate.swift */,
 				98F2E1B21BF0C41A0016C0C5 /* ViewController.swift */,
+				98F2E1D01BF14F3A0016C0C5 /* Shaders.metal */,
+				98F2E1DE1BF46E5B0016C0C5 /* Cube.swift */,
 				98F2E1B41BF0C41A0016C0C5 /* Main.storyboard */,
 				98F2E1B71BF0C41A0016C0C5 /* Assets.xcassets */,
 				98F2E1B91BF0C41A0016C0C5 /* LaunchScreen.storyboard */,
@@ -94,6 +115,15 @@
 				98F2E1C71BF0C41A0016C0C5 /* Info.plist */,
 			);
 			path = MetalTestTests;
+			sourceTree = "<group>";
+		};
+		98F2E1D41BF3F11A0016C0C5 /* Matrix4 */ = {
+			isa = PBXGroup;
+			children = (
+				98F2E1D51BF3F11A0016C0C5 /* Matrix4.h */,
+				98F2E1D61BF3F11A0016C0C5 /* Matrix4.m */,
+			);
+			path = Matrix4;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,7 +229,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98F2E1D11BF14F3A0016C0C5 /* Shaders.metal in Sources */,
+				98F2E1D71BF3F11A0016C0C5 /* Matrix4.m in Sources */,
 				98F2E1B31BF0C41A0016C0C5 /* ViewController.swift in Sources */,
+				98F2E1DB1BF3F1890016C0C5 /* Node.swift in Sources */,
+				98F2E1DF1BF46E5B0016C0C5 /* Cube.swift in Sources */,
+				98F2E1D91BF3F17E0016C0C5 /* Vertex.swift in Sources */,
+				98F2E1DD1BF3F4750016C0C5 /* Triangle.swift in Sources */,
 				98F2E1B11BF0C41A0016C0C5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,6 +369,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.ninetyfour.MetalTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MetalTest/MetalTest-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -344,6 +381,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.ninetyfour.MetalTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MetalTest/MetalTest-Bridging-Header.h";
 			};
 			name = Release;
 		};
