@@ -14,22 +14,17 @@ class ViewController: UIViewController {
 	
 	// MARK: Properties
 	
-	var device: MTLDevice! = nil
 	var metalLayer: CAMetalLayer! = nil
-	
-	var pipelineState: MTLRenderPipelineState! = nil
-	
-	var commandQueue: MTLCommandQueue! = nil
-	
 	var drawable: CAMetalDrawable! = nil
-	
 	var timer: CADisplayLink! = nil
 	
+	var device: MTLDevice! = nil
+	var pipelineState: MTLRenderPipelineState! = nil
+	var commandQueue: MTLCommandQueue! = nil
+	
 	var objectToDraw: Node!
-	
-	var projectionMatrix: Matrix4!
-	
 	let clearColor = MTLClearColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+	var projectionMatrix: Matrix4!
 	
 	var lastFrameTimestamp: CFTimeInterval = 0.0
 
@@ -55,16 +50,17 @@ class ViewController: UIViewController {
 		objectToDraw = Cube(device: device)
 		
 		let defaultLibrary = device.newDefaultLibrary()
-		let fragmentProgram = defaultLibrary!.newFunctionWithName("basic_fragment")
 		let vertexProgram = defaultLibrary!.newFunctionWithName("basic_vertex")
+		let fragmentProgram = defaultLibrary!.newFunctionWithName("basic_fragment")
 		
+		// Create programmable pipeline.
 		let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
 		pipelineStateDescriptor.vertexFunction = vertexProgram
 		pipelineStateDescriptor.fragmentFunction = fragmentProgram
 		pipelineStateDescriptor.colorAttachments[0].pixelFormat = .BGRA8Unorm
 		
-		// Note: this varies from tutorial.
-		pipelineState = try? device.newRenderPipelineStateWithDescriptor(pipelineStateDescriptor)
+		pipelineState = try? device.newRenderPipelineStateWithDescriptor(
+			pipelineStateDescriptor)
 		if pipelineState == nil {
 			print("Failed to create pipeline state, error")
 		}
@@ -72,6 +68,7 @@ class ViewController: UIViewController {
 		commandQueue = device.newCommandQueue()
 		drawable = metalLayer.nextDrawable()
 		
+		// Set up render loop.
 		timer = CADisplayLink(target: self, selector: Selector("newFrame:"))
 		timer.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
 	}
@@ -101,12 +98,10 @@ class ViewController: UIViewController {
 		let elapsed: CFTimeInterval = displayLink.timestamp - lastFrameTimestamp
 		lastFrameTimestamp = displayLink.timestamp
 		
-//		print("newFrame: \(elapsed)")
 		gameloop(elapsed)
 	}
 
 	func gameloop(timeSinceLastUpdate: CFTimeInterval) {
-//		print("gameloop: \(timeSinceLastUpdate)")
 		objectToDraw.updateWithDelta(timeSinceLastUpdate)
 		
 		autoreleasepool {
