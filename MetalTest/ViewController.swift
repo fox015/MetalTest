@@ -101,6 +101,10 @@ class ViewController: UIViewController {
 		gameloop(elapsed)
 	}
 
+	/// Game loop.
+	///
+	/// - Parameter timeSinceLastUpdate: the elapsed time since game state was
+	///   last updated.
 	func gameloop(timeSinceLastUpdate: CFTimeInterval) {
 		objectToDraw.updateWithDelta(timeSinceLastUpdate)
 		
