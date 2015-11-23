@@ -87,6 +87,17 @@
 			name = External;
 			sourceTree = "<group>";
 		};
+		984667CC1C01CCB50060D8F2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				98F2E1DC1BF3F4750016C0C5 /* Triangle.swift */,
+				98F2E1DE1BF46E5B0016C0C5 /* Cube.swift */,
+				984667C81BF9F3010060D8F2 /* Shape.swift */,
+				98F2E1DA1BF3F1890016C0C5 /* Node.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		98F2E1A41BF0C41A0016C0C5 = {
 			isa = PBXGroup;
 			children = (
@@ -112,18 +123,15 @@
 				984667C61BF9F1850060D8F2 /* TableViewController.swift */,
 				984667CA1BF9F6180060D8F2 /* TableViewCell.swift */,
 				98F2E1D81BF3F17E0016C0C5 /* Vertex.swift */,
-				98F2E1DA1BF3F1890016C0C5 /* Node.swift */,
+				984667CC1C01CCB50060D8F2 /* Model */,
 				98F2E1E01BF4A45C0016C0C5 /* MetalTest-Bridging-Header.h */,
-				98F2E1DC1BF3F4750016C0C5 /* Triangle.swift */,
 				98F2E1B01BF0C41A0016C0C5 /* AppDelegate.swift */,
 				98F2E1B21BF0C41A0016C0C5 /* ViewController.swift */,
 				98F2E1D01BF14F3A0016C0C5 /* Shaders.metal */,
-				98F2E1DE1BF46E5B0016C0C5 /* Cube.swift */,
 				98F2E1B41BF0C41A0016C0C5 /* Main.storyboard */,
 				98F2E1B71BF0C41A0016C0C5 /* Assets.xcassets */,
 				98F2E1B91BF0C41A0016C0C5 /* LaunchScreen.storyboard */,
 				98F2E1BC1BF0C41A0016C0C5 /* Info.plist */,
-				984667C81BF9F3010060D8F2 /* Shape.swift */,
 			);
 			path = MetalTest;
 			sourceTree = "<group>";

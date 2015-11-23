@@ -86,15 +86,28 @@ class TableViewController: UITableViewController {
     }
     */
 
-    /*
+	
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+	
+	// In a storyboard-based application, you will often want to do a little preparation before navigation
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "ShowNode" {
+			// We are moving to the node view.
+			let nodeViewController = segue.destinationViewController as! ViewController
+			
+			// Get the cell that generated this segue.
+			if let selectedObjectCell = sender as? TableViewCell {
+				let indexPath = tableView.indexPathForCell(selectedObjectCell)!
+				let selectedObject = shapes[indexPath.row]
+				switch selectedObject.type {
+					case .Triangle:
+						nodeViewController.objectToDraw = Triangle()
+					case .Cube:
+						nodeViewController.objectToDraw = Cube()
+				}
+			}
+		}
+	}
 	
 	func loadSampleShapes() {
 		shapes.append(Shape(name: "Triangle", type: .Triangle))

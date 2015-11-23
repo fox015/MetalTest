@@ -27,6 +27,10 @@ class ViewController: UIViewController {
 	var projectionMatrix: Matrix4!
 	
 	var lastFrameTimestamp: CFTimeInterval = 0.0
+	
+	// From Node.
+	var vertexBuffer: MTLBuffer?
+	var uniformBuffer: MTLBuffer?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -46,9 +50,16 @@ class ViewController: UIViewController {
 			aspectRatio: Float(view.bounds.size.width / view.bounds.size.height),
 			nearZ: 0.01, farZ: 100.0)
 		
-//		objectToDraw = Triangle(device: device)
-		objectToDraw = Cube(device: device)
+		// Init object
+		var vertexData = Array<Float>()
+		for vertex in objectToDraw.vertices {
+			vertexData += vertex.floatBuffer()
+		}
 		
+		let dataSize = vertexData.count * sizeofValue(vertexData[0])
+		vertexBuffer = device.newBufferWithBytes(vertexData, length: dataSize, options: [])
+		
+		// Init library and program.
 		let defaultLibrary = device.newDefaultLibrary()
 		let vertexProgram = defaultLibrary!.newFunctionWithName("basic_vertex")
 		let fragmentProgram = defaultLibrary!.newFunctionWithName("basic_fragment")
@@ -85,7 +96,7 @@ class ViewController: UIViewController {
 		worldModelMatrix.translate(0.0, y: 0.0, z: -7.0)
 		worldModelMatrix.rotateAroundX(Matrix4.degreesToRad(25), y: 0.0, z: 0.0)
 		
-		objectToDraw.render(commandQueue, pipelineState: pipelineState,
+		render(commandQueue, pipelineState: pipelineState,
 			drawable: drawable!,parentModelViewMatrix: worldModelMatrix,
 			projectionMatrix: projectionMatrix, clearColor: clearColor)
 	}
@@ -103,7 +114,7 @@ class ViewController: UIViewController {
 
 	/// Game loop.
 	///
-	/// - Parameter timeSinceLastUpdate: the elapsed time since game state was
+	/// - parameter timeSinceLastUpdate: the elapsed time since game state was
 	///   last updated.
 	func gameloop(timeSinceLastUpdate: CFTimeInterval) {
 		objectToDraw.updateWithDelta(timeSinceLastUpdate)
@@ -111,6 +122,40 @@ class ViewController: UIViewController {
 		autoreleasepool {
 			self.render()
 		}
+	}
+	
+	func render(commandQueue: MTLCommandQueue,
+		pipelineState: MTLRenderPipelineState,
+		drawable: CAMetalDrawable,
+		parentModelViewMatrix: Matrix4,
+		projectionMatrix: Matrix4, clearColor: MTLClearColor?) {
+			let renderPassDescriptor = MTLRenderPassDescriptor()
+			renderPassDescriptor.colorAttachments[0].texture = drawable.texture
+			renderPassDescriptor.colorAttachments[0].loadAction = .Clear
+			renderPassDescriptor.colorAttachments[0].clearColor = clearColor!
+			renderPassDescriptor.colorAttachments[0].storeAction = .Store
+			
+			let commandBuffer = commandQueue.commandBuffer()
+			
+			let renderEncoder = commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
+			renderEncoder.setCullMode(MTLCullMode.Front)
+			renderEncoder.setRenderPipelineState(pipelineState)
+			renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, atIndex: 0)
+			
+			let nodeModelMatrix = objectToDraw.modelMatrix()
+			nodeModelMatrix.multiplyLeft(parentModelViewMatrix)
+			
+			uniformBuffer = device.newBufferWithLength(sizeof(Float) * Matrix4.numberOfElements() * 2, options: [])
+			let bufferPointer = uniformBuffer?.contents()
+			memcpy(bufferPointer!, nodeModelMatrix.raw(), sizeof(Float) *  Matrix4.numberOfElements())
+			memcpy(bufferPointer! + sizeof(Float) * Matrix4.numberOfElements(), projectionMatrix.raw(), sizeof(Float) * Matrix4.numberOfElements())
+			renderEncoder.setVertexBuffer(uniformBuffer, offset: 0, atIndex: 1)
+			
+			renderEncoder.drawPrimitives(.Triangle, vertexStart: 0, vertexCount: objectToDraw.vertices.count, instanceCount: objectToDraw.vertices.count / 3)
+			renderEncoder.endEncoding()
+			
+			commandBuffer.presentDrawable(drawable)
+			commandBuffer.commit()
 	}
 
 }

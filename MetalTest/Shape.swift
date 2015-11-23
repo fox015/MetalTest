@@ -7,19 +7,19 @@
 //
 
 class Shape {
-
-	enum ShapeType {
-		case Triangle
-		case Cube
-	}
 	
 	// MARK: Properties.
-	let name: String!
-	let type: ShapeType!
+	let name: String
+	let type: ShapeType
 	
 	init(name: String, type: ShapeType) {
 		self.name = name
 		self.type = type
 	}
 	
+}
+
+enum ShapeType {
+	case Triangle
+	case Cube
 }

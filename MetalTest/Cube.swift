@@ -10,7 +10,7 @@ import Metal
 
 class Cube: Node {
 	
-	init(device: MTLDevice) {
+	init() {
 		let A = Vertex(x: -1.0, y:   1.0, z:   1.0, r:  1.0, g:  0.0, b:  0.0, a:  1.0)
 		let B = Vertex(x: -1.0, y:  -1.0, z:   1.0, r:  0.0, g:  1.0, b:  0.0, a:  1.0)
 		let C = Vertex(x:  1.0, y:  -1.0, z:   1.0, r:  0.0, g:  0.0, b:  1.0, a:  1.0)
@@ -32,7 +32,7 @@ class Cube: Node {
 			B,S,T ,B,T,C    // Bottom
 		]
 		
-		super.init(name: "Cube", vertices: verticesArray, device: device)
+		super.init(name: "Cube", vertices: verticesArray)
 	}
 	
 	override func updateWithDelta(delta: CFTimeInterval) {
@@ -42,4 +42,5 @@ class Cube: Node {
 		rotationY = sinf(Float(time) * 2.0 * Float(M_PI) / secsPerMove)
 		rotationX = sinf(Float(time) * 2.0 * Float(M_PI) / secsPerMove)
 	}
+	
 }
